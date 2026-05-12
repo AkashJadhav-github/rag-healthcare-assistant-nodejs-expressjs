@@ -1,0 +1,210 @@
+HYPERTENSION CLINICAL PRACTICE GUIDELINES
+Version 4.2 | Updated 2026 | Internal Reference Document
+
+==============================================================
+SECTION 1: DEFINITION AND CLASSIFICATION
+==============================================================
+
+Hypertension (HTN) is defined as a sustained elevation of systolic blood pressure (SBP) greater than or equal to 130 mmHg or diastolic blood pressure (DBP) greater than or equal to 80 mmHg, based on the 2017 ACC/AHA guidelines. This threshold was lowered from the previous JNC 7 definition of 140/90 mmHg to allow earlier identification and intervention.
+
+Blood Pressure Classification:
+- Normal: SBP < 120 and DBP < 80 mmHg
+- Elevated: SBP 120-129 and DBP < 80 mmHg
+- Stage 1 HTN: SBP 130-139 or DBP 80-89 mmHg
+- Stage 2 HTN: SBP >= 140 or DBP >= 90 mmHg
+- Hypertensive Crisis: SBP > 180 and/or DBP > 120 mmHg
+
+Hypertensive Urgency: BP > 180/120 mmHg without evidence of target organ damage.
+Hypertensive Emergency: BP > 180/120 mmHg WITH evidence of acute target organ damage (e.g., hypertensive encephalopathy, aortic dissection, acute MI, acute pulmonary edema, acute renal failure).
+
+==============================================================
+SECTION 2: EPIDEMIOLOGY
+==============================================================
+
+Hypertension affects approximately 1.28 billion adults worldwide aged 30-79 years (WHO, 2023). Prevalence in the United States is approximately 47% of adults (CDC, 2021). Among those with hypertension, approximately 24% have uncontrolled blood pressure.
+
+Risk factors include:
+- Age (risk increases with advancing age; >65 years carries highest burden)
+- Obesity (BMI > 30 kg/m2 associated with 2-3x increased risk)
+- Sedentary lifestyle
+- High sodium diet (>2300 mg/day)
+- Excessive alcohol consumption (>2 drinks/day for men, >1 for women)
+- Family history of hypertension
+- Diabetes mellitus (T2DM)
+- Chronic kidney disease (CKD)
+- Sleep apnea (OSA)
+- Race/ethnicity (higher prevalence and earlier onset in Black adults)
+
+==============================================================
+SECTION 3: DIAGNOSIS
+==============================================================
+
+Diagnosis requires confirmation on at least two separate visits, ideally 1-4 weeks apart, unless BP is markedly elevated (>180/110 mmHg) or target organ damage is present.
+
+Measurement technique is critical:
+1. Patient should be seated quietly for at least 5 minutes before measurement.
+2. Feet flat on the floor; back supported; arm at heart level.
+3. Use appropriately sized cuff (bladder encircles 80% of arm).
+4. Measure in both arms initially; use the higher reading arm for subsequent measurements.
+5. Take at least 2 readings 1-2 minutes apart and average them.
+6. Confirm with ambulatory blood pressure monitoring (ABPM) when white-coat or masked hypertension is suspected.
+
+White-coat hypertension: Office BP elevated but ABPM normal. Prevalence ~15%. Associated with lower cardiovascular risk than sustained HTN but may progress to sustained HTN.
+
+Masked hypertension: Office BP normal but ABPM elevated. May affect up to 17% of patients. Associated with higher cardiovascular risk than white-coat HTN; may require treatment.
+
+Secondary hypertension evaluation should be considered in:
+- Young patients (<30 years) with Stage 2 HTN
+- Sudden onset or worsening of previously controlled HTN
+- Resistant HTN (BP uncontrolled on >=3 antihypertensives at maximally tolerated doses including a diuretic)
+- Hypokalemia without diuretic use
+- Abdominal bruit (renovascular HTN)
+- Snoring/witnessed apnea (OSA)
+- Paroxysmal HTN with headache, palpitations, sweating (pheochromocytoma)
+
+==============================================================
+SECTION 4: CARDIOVASCULAR RISK ASSESSMENT
+==============================================================
+
+10-year atherosclerotic cardiovascular disease (ASCVD) risk should be calculated using the Pooled Cohort Equations for all adults without existing CVD. Factors include age, sex, race, total cholesterol, HDL, systolic BP, BP treatment status, diabetes status, and smoking status.
+
+Risk categories:
+- Low risk: <10% 10-year ASCVD risk
+- Borderline risk: 10-20%
+- Intermediate risk: >20%
+- High risk: Existing CVD, DM with target organ damage, CKD stages 3-5
+
+BP treatment thresholds by risk:
+- Stage 1 HTN with ASCVD >= 10% or established CVD: Initiate pharmacotherapy + lifestyle
+- Stage 1 HTN with ASCVD < 10%: Lifestyle modification; repeat assessment in 3-6 months
+- Stage 2 HTN: Initiate pharmacotherapy + lifestyle regardless of ASCVD risk
+- Hypertensive crisis: Immediate medical management
+
+==============================================================
+SECTION 5: TREATMENT
+==============================================================
+
+5.1 Lifestyle Modifications (all stages)
+
+Dietary Approaches to Stop Hypertension (DASH) diet:
+- Emphasises fruits, vegetables, whole grains, low-fat dairy
+- Limits saturated fat, total fat, cholesterol, and sodium
+- Can reduce SBP by 8-14 mmHg
+
+Sodium restriction:
+- Target: < 2.3 g/day (100 mmol/day)
+- Optimal: < 1.5 g/day for established HTN
+- Expected SBP reduction: 2-8 mmHg
+
+Physical activity:
+- Aerobic exercise: >=150 minutes moderate-intensity per week (e.g., brisk walking, swimming, cycling)
+- OR >=75 minutes vigorous-intensity per week
+- Expected SBP reduction: 4-9 mmHg
+- Resistance training 2-3 days/week also beneficial
+
+Weight management:
+- Weight loss of 1 kg associated with SBP reduction of approximately 1 mmHg
+- Target BMI 18.5-24.9 kg/m2
+
+Alcohol reduction:
+- Men: <=2 standard drinks per day
+- Women: <=1 standard drink per day
+- Expected SBP reduction: 2-4 mmHg
+
+Smoking cessation:
+- Does not directly reduce BP but dramatically reduces overall cardiovascular risk
+- All HTN patients who smoke should be advised and assisted to quit
+
+5.2 Pharmacological Treatment
+
+First-line antihypertensive agents (ACC/AHA 2017, JNC 8):
+
+1. Thiazide-type diuretics (chlorthalidone preferred over HCTZ; longer half-life, more effective SBP reduction)
+   - Chlorthalidone 12.5-25 mg once daily
+   - Hydrochlorothiazide 12.5-25 mg once daily
+   - Indapamide 1.25-2.5 mg once daily
+
+2. Calcium channel blockers (CCBs) — dihydropyridine preferred
+   - Amlodipine 2.5-10 mg once daily
+   - Felodipine 2.5-10 mg once daily
+   - Nifedipine ER 30-60 mg once daily
+
+3. ACE Inhibitors (ACEi)
+   - Lisinopril 10-40 mg once daily
+   - Ramipril 2.5-10 mg once daily or twice daily
+   - Enalapril 5-40 mg once or twice daily
+   - Contraindicated in pregnancy; may cause dry cough (up to 20% of patients)
+
+4. Angiotensin Receptor Blockers (ARBs)
+   - Losartan 50-100 mg once daily
+   - Valsartan 80-320 mg once daily
+   - Olmesartan 20-40 mg once daily
+   - Well-tolerated; preferred alternative when ACEi cough is problematic
+
+Special populations:
+
+- Black patients: Diuretics and CCBs preferred as initial monotherapy (ACEi/ARBs less effective as monotherapy in this population)
+- CKD with proteinuria: ACEi or ARB preferred (renoprotective)
+- Diabetes: ACEi or ARB preferred (nephroprotective, reduces proteinuria)
+- Heart failure with reduced EF: ACEi/ARB + beta-blocker + aldosterone antagonist + diuretic
+- Post-MI: Beta-blockers + ACEi/ARB
+- Angina: Beta-blockers or CCBs
+
+5.3 Resistant Hypertension
+
+Defined as BP above goal despite use of >= 3 antihypertensive agents at maximally tolerated doses, ideally including a long-acting CCB, an ACEi or ARB, and a thiazide diuretic. Pseudo-resistance (medication non-adherence, white-coat effect, suboptimal therapy) must be excluded first.
+
+Add-on agents for resistant HTN:
+- Spironolactone 25-50 mg (potassium-sparing diuretic, effective for primary aldosteronism)
+- Eplerenone 25-50 mg (alternative to spironolactone with fewer sex hormone side effects)
+- Hydralazine 25-100 mg twice to three times daily (direct vasodilator)
+- Minoxidil 5-40 mg daily (reserved for severe resistant HTN; causes fluid retention and hypertrichosis)
+- Clonidine 0.1-0.4 mg twice daily (central alpha-2 agonist; limited by side effects)
+
+==============================================================
+SECTION 6: MONITORING AND FOLLOW-UP
+==============================================================
+
+After initiating therapy:
+- Reassess within 1 month to evaluate response and side effects.
+- If BP at goal, reassess every 3-6 months.
+- Annual comprehensive metabolic panel (CMP), lipid panel, and urine albumin-to-creatinine ratio (UACR).
+- Electrocardiogram (ECG) at baseline to evaluate for LVH.
+- Echocardiogram if LVH suspected or EF evaluation needed.
+- Ankle-brachial index (ABI) if peripheral arterial disease suspected.
+
+Home blood pressure monitoring (HBPM):
+- Recommended for all hypertensive patients.
+- Standard validated electronic device; use validated oscillometric monitors.
+- Measure in the morning before medications and in the evening.
+- Record at least 7 days before clinic visits; discard first day readings.
+- HBPM goal: average < 130/80 mmHg.
+
+==============================================================
+SECTION 7: HYPERTENSIVE EMERGENCY MANAGEMENT
+==============================================================
+
+Goals:
+- Do NOT reduce BP by > 25% in the first hour (risk of watershed ischemia)
+- Over next 2-6 hours: reduce to ~160/100 mmHg
+- Over next 24-48 hours: normalise BP
+
+IV agents for hypertensive emergency:
+- Labetalol: 20 mg IV bolus, then 20-80 mg q10 min (max 300 mg), or continuous infusion 1-2 mg/min
+- Nicardipine: 5 mg/hr IV infusion, titrate up to 15 mg/hr
+- Esmolol: 250-500 mcg/kg IV bolus, then 50-200 mcg/kg/min infusion
+- Hydralazine: 10-20 mg IV q20-30 min (less predictable BP response; use with caution)
+- Sodium nitroprusside: 0.25-10 mcg/kg/min IV infusion (potent; risk of cyanide toxicity with prolonged use)
+
+Exceptions (do NOT lower BP aggressively):
+- Acute ischemic stroke: lower BP only if >220/120 mmHg (unless tPA candidate, then target <185/110)
+- Aortic dissection: target SBP 100-120 mmHg rapidly with IV beta-blocker + vasodilator
+
+==============================================================
+REFERENCES
+==============================================================
+
+1. Whelton PK, et al. 2017 ACC/AHA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults. J Am Coll Cardiol. 2018;71(19):e127-e248.
+2. James PA, et al. 2014 Evidence-Based Guideline for the Management of High Blood Pressure in Adults (JNC 8). JAMA. 2014;311(5):507-520.
+3. Williams B, et al. 2018 ESC/ESH Guidelines for the Management of Arterial Hypertension. Eur Heart J. 2018;39(33):3021-3104.
+4. Carey RM, et al. Resistant Hypertension: Detection, Evaluation, and Management. Hypertension. 2018;72(5):e53-e90.

@@ -1,0 +1,207 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write  # Required for OIDC-based AWS authentication
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: rag-healthcare-nodejs
+  EKS_CLUSTER_STAGING: rag-staging
+  EKS_CLUSTER_PRODUCTION: rag-production
+  K8S_NAMESPACE: healthcare-rag
+  K8S_DEPLOYMENT: rag-api
+
+jobs:
+  # ============================================================
+  # Build & push Docker image to AWS ECR
+  # ============================================================
+  build-and-push:
+    name: Build & Push to ECR
+    runs-on: ubuntu-latest
+
+    outputs:
+      image-tag: ${{ steps.build.outputs.image-tag }}
+      image-uri: ${{ steps.build.outputs.image-uri }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set image tag
+        id: tag
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=sha-${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.tag.outputs.tag }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+        env:
+          image-tag: ${{ steps.tag.outputs.tag }}
+          image-uri: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.tag.outputs.tag }}
+
+  # ============================================================
+  # Deploy to Staging (every push to main)
+  # ============================================================
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment:
+      name: staging
+      url: https://api-staging.healthcare.example.com
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kubeconfig for staging cluster
+        run: |
+          aws eks update-kubeconfig \
+            --region "${{ env.AWS_REGION }}" \
+            --name "${{ env.EKS_CLUSTER_STAGING }}"
+
+      - name: Update deployment image
+        run: |
+          kubectl set image deployment/${{ env.K8S_DEPLOYMENT }} \
+            rag-api=${{ needs.build-and-push.outputs.image-uri }} \
+            -n ${{ env.K8S_NAMESPACE }}
+
+      - name: Wait for rollout to complete
+        run: |
+          kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT }} \
+            -n ${{ env.K8S_NAMESPACE }} \
+            --timeout=300s
+
+      - name: Smoke test staging
+        run: |
+          STAGING_URL="https://api-staging.healthcare.example.com"
+          echo "Running smoke test against $STAGING_URL"
+          for i in 1 2 3; do
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              "$STAGING_URL/api/v1/health/live" --max-time 15)
+            if [ "$HTTP_STATUS" == "200" ]; then
+              echo "Smoke test passed (attempt $i)"
+              exit 0
+            fi
+            echo "Attempt $i failed (HTTP $HTTP_STATUS), retrying..."
+            sleep 10
+          done
+          echo "Smoke test FAILED after 3 attempts"
+          exit 1
+
+      - name: Rollback staging on failure
+        if: failure()
+        run: |
+          echo "Deployment or smoke test failed — rolling back staging"
+          kubectl rollout undo deployment/${{ env.K8S_DEPLOYMENT }} \
+            -n ${{ env.K8S_NAMESPACE }}
+          kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT }} \
+            -n ${{ env.K8S_NAMESPACE }} \
+            --timeout=120s
+
+  # ============================================================
+  # Deploy to Production (tagged releases only)
+  # ============================================================
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build-and-push, deploy-staging]
+    if: startsWith(github.ref, 'refs/tags/v')
+    environment:
+      name: production
+      url: https://api.healthcare.example.com
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kubeconfig for production cluster
+        run: |
+          aws eks update-kubeconfig \
+            --region "${{ env.AWS_REGION }}" \
+            --name "${{ env.EKS_CLUSTER_PRODUCTION }}"
+
+      - name: Update deployment image
+        run: |
+          kubectl set image deployment/${{ env.K8S_DEPLOYMENT }} \
+            rag-api=${{ needs.build-and-push.outputs.image-uri }} \
+            -n ${{ env.K8S_NAMESPACE }}
+
+      - name: Wait for production rollout
+        run: |
+          kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT }} \
+            -n ${{ env.K8S_NAMESPACE }} \
+            --timeout=600s
+
+      - name: Production health check
+        run: |
+          PROD_URL="https://api.healthcare.example.com"
+          echo "Running production health check against $PROD_URL"
+          for i in 1 2 3 4 5; do
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              "$PROD_URL/api/v1/health/live" --max-time 15)
+            if [ "$HTTP_STATUS" == "200" ]; then
+              echo "Production health check passed (attempt $i)"
+              exit 0
+            fi
+            echo "Attempt $i failed (HTTP $HTTP_STATUS), retrying in 15s..."
+            sleep 15
+          done
+          echo "Production health check FAILED — triggering rollback"
+          exit 1
+
+      - name: Rollback production on failure
+        if: failure()
+        run: |
+          echo "Production deployment FAILED — rolling back to previous version"
+          kubectl rollout undo deployment/${{ env.K8S_DEPLOYMENT }} \
+            -n ${{ env.K8S_NAMESPACE }}
+          kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT }} \
+            -n ${{ env.K8S_NAMESPACE }} \
+            --timeout=300s
+          echo "Rollback complete. Previous version is now live."

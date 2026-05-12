@@ -1,0 +1,74 @@
+---
+# ============================================================
+# ClusterIP Service
+# ============================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-api
+  namespace: healthcare-rag
+  labels:
+    app: rag-api
+    app.kubernetes.io/name: rag-healthcare-assistant
+    app.kubernetes.io/component: api
+spec:
+  type: ClusterIP
+  selector:
+    app: rag-api
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+
+---
+# ============================================================
+# Ingress with TLS and nginx annotations
+# ============================================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rag-api-ingress
+  namespace: healthcare-rag
+  labels:
+    app: rag-api
+    app.kubernetes.io/name: rag-healthcare-assistant
+    app.kubernetes.io/component: ingress
+  annotations:
+    # ── nginx ingress controller ──────────────────────────────────────────────
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    # ── SSL/TLS ───────────────────────────────────────────────────────────────
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # ── Rate limiting (global burst protection) ────────────────────────────────
+    nginx.ingress.kubernetes.io/limit-rps: "30"
+    nginx.ingress.kubernetes.io/limit-connections: "20"
+    # ── Security headers ──────────────────────────────────────────────────────
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+    # ── cert-manager (Let's Encrypt) ──────────────────────────────────────────
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - api.healthcare.example.com
+      secretName: rag-api-tls
+  rules:
+    - host: api.healthcare.example.com
+      http:
+        paths:
+          - path: /api/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: rag-api
+                port:
+                  number: 80

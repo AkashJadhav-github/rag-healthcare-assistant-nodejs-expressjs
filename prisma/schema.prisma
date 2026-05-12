@@ -1,0 +1,219 @@
+// =============================================================================
+// Prisma Schema — RAG Healthcare Knowledge Assistant
+// =============================================================================
+// Database : PostgreSQL
+// Generator: @prisma/client (Node.js)
+// =============================================================================
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// Enums
+// =============================================================================
+
+enum Role {
+  ADMIN
+  CLINICIAN
+  RESEARCHER
+  VIEWER
+}
+
+enum DocumentCategory {
+  CLINICAL_GUIDELINE
+  DRUG_REFERENCE
+  RESEARCH_PAPER
+  PROTOCOL
+  POLICY
+  PATIENT_EDUCATION
+  REGULATORY
+  OTHER
+}
+
+enum DocumentStatus {
+  PENDING
+  PROCESSING
+  INDEXED
+  FAILED
+}
+
+enum AuditAction {
+  LOGIN
+  LOGOUT
+  QUERY
+  DOCUMENT_UPLOAD
+  DOCUMENT_ACCESS
+  DOCUMENT_DELETE
+  REINDEX
+  USER_CREATE
+  USER_UPDATE
+  USER_DELETE
+  ADMIN_ACTION
+}
+
+// =============================================================================
+// Models
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// User
+// -----------------------------------------------------------------------------
+
+model User {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email          String    @unique @db.VarChar(255)
+  username       String    @unique @db.VarChar(100)
+  hashedPassword String    @map("hashed_password") @db.Text
+  fullName       String    @map("full_name") @db.VarChar(255)
+  role           Role      @default(VIEWER)
+  department     String?   @db.VarChar(255)
+  isActive       Boolean   @default(true) @map("is_active")
+  isVerified     Boolean   @default(false) @map("is_verified")
+  lastLogin      DateTime? @map("last_login") @db.Timestamptz
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  uploadedDocuments Document[]  @relation("DocumentUploader")
+  queryLogs         QueryLog[]
+  auditLogs         AuditLog[]
+
+  @@index([email])
+  @@index([username])
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+// -----------------------------------------------------------------------------
+// Document
+// -----------------------------------------------------------------------------
+
+model Document {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title              String           @db.VarChar(500)
+  filename           String           @db.VarChar(500)
+  fileType           String           @map("file_type") @db.VarChar(50)
+  fileSize           BigInt           @map("file_size")
+  category           DocumentCategory @default(OTHER)
+  source             String?          @db.VarChar(500)
+  version            String           @default("1.0") @db.VarChar(50)
+  status             DocumentStatus   @default(PENDING)
+  chunkCount         Int              @default(0) @map("chunk_count")
+  pineconeNamespace  String?          @map("pinecone_namespace") @db.VarChar(255)
+  errorMessage       String?          @map("error_message") @db.Text
+  metadata           Json?            @default("{}")
+  isActive           Boolean          @default(true) @map("is_active")
+  uploadedById       String           @map("uploaded_by_id") @db.Uuid
+  createdAt          DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt          DateTime         @updatedAt @map("updated_at") @db.Timestamptz
+  indexedAt          DateTime?        @map("indexed_at") @db.Timestamptz
+
+  // Relations
+  uploadedBy   User          @relation("DocumentUploader", fields: [uploadedById], references: [id], onDelete: Restrict)
+  querySources QuerySource[]
+
+  @@index([status])
+  @@index([category])
+  @@index([uploadedById])
+  @@index([isActive])
+  @@index([pineconeNamespace])
+  @@map("documents")
+}
+
+// -----------------------------------------------------------------------------
+// QueryLog
+// -----------------------------------------------------------------------------
+
+model QueryLog {
+  id                   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId               String?  @map("user_id") @db.Uuid
+  sessionId            String   @map("session_id") @db.VarChar(255)
+  queryText            String   @map("query_text") @db.Text
+  queryHash            String   @map("query_hash") @db.VarChar(64)
+  responseText         String?  @map("response_text") @db.Text
+  enhancedQuery        String?  @map("enhanced_query") @db.Text
+  confidenceScore      Float?   @map("confidence_score")
+  latencyMs            Int?     @map("latency_ms")
+  llmModel             String?  @map("llm_model") @db.VarChar(100)
+  embeddingModel       String?  @map("embedding_model") @db.VarChar(100)
+  retrievalCount       Int      @default(0) @map("retrieval_count")
+  tokenCountPrompt     Int?     @map("token_count_prompt")
+  tokenCountCompletion Int?     @map("token_count_completion")
+  wasCached            Boolean  @default(false) @map("was_cached")
+  error                String?  @db.Text
+  metadata             Json?    @default("{}")
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  user    User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  sources QuerySource[]
+
+  @@index([userId])
+  @@index([queryHash])
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("query_logs")
+}
+
+// -----------------------------------------------------------------------------
+// QuerySource — documents retrieved for a specific query
+// -----------------------------------------------------------------------------
+
+model QuerySource {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  queryId         String   @map("query_id") @db.Uuid
+  documentId      String   @map("document_id") @db.Uuid
+  documentTitle   String   @map("document_title") @db.VarChar(500)
+  chunkContent    String   @map("chunk_content") @db.Text
+  similarityScore Float    @map("similarity_score")
+  rank            Int
+  pageNumber      Int?     @map("page_number")
+  section         String?  @db.VarChar(500)
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  query    QueryLog @relation(fields: [queryId], references: [id], onDelete: Cascade)
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([queryId])
+  @@index([documentId])
+  @@index([similarityScore])
+  @@map("query_sources")
+}
+
+// -----------------------------------------------------------------------------
+// AuditLog — immutable append-only event log
+// -----------------------------------------------------------------------------
+
+model AuditLog {
+  id            String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId        String?     @map("user_id") @db.Uuid
+  action        AuditAction
+  resourceType  String?     @map("resource_type") @db.VarChar(100)
+  resourceId    String?     @map("resource_id") @db.VarChar(255)
+  ipAddress     String?     @map("ip_address") @db.VarChar(45)
+  userAgent     String?     @map("user_agent") @db.Text
+  requestPath   String?     @map("request_path") @db.VarChar(1000)
+  requestMethod String?     @map("request_method") @db.VarChar(10)
+  statusCode    Int?        @map("status_code")
+  details       Json?       @default("{}")
+  errorMessage  String?     @map("error_message") @db.Text
+  createdAt     DateTime    @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations (user may have been deleted — keep history)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@index([resourceType, resourceId])
+  @@map("audit_logs")
+}

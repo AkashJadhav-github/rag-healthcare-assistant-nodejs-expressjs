@@ -1,0 +1,221 @@
+DRUG INTERACTIONS REFERENCE GUIDE
+Version 2.4 | Updated 2026 | Internal Reference Document
+
+==============================================================
+SECTION 1: OVERVIEW AND SEVERITY CLASSIFICATION
+==============================================================
+
+Drug interactions occur when one drug affects the activity of another when both are administered together. Interactions may be pharmacokinetic (affecting drug absorption, distribution, metabolism, or excretion) or pharmacodynamic (affecting drug effects at the site of action).
+
+Severity Classification:
+- Contraindicated: Should not be used together; life-threatening or serious adverse outcome
+- Serious/Major: Risk outweighs benefit in most cases; requires close monitoring or dose adjustment
+- Moderate: Benefit may outweigh risk; monitor patient; may require dose adjustment
+- Minor: Interaction is minor and not clinically significant in most situations
+
+==============================================================
+SECTION 2: CARDIOVASCULAR DRUG INTERACTIONS
+==============================================================
+
+2.1 Antihypertensives
+
+ACE Inhibitors + Potassium-sparing diuretics (spironolactone, eplerenone, amiloride)
+- Severity: Serious
+- Mechanism: Additive hyperkalemia
+- Clinical significance: Can cause life-threatening hyperkalemia, especially in CKD
+- Management: Monitor serum potassium closely; reduce dose or avoid combination if K+ >5.0 mEq/L
+- Relevant drugs: Lisinopril/spironolactone, ramipril/eplerenone
+
+ACE Inhibitors + ARBs (dual RAAS blockade)
+- Severity: Serious (Contraindicated in diabetic nephropathy)
+- Mechanism: Additive RAAS blockade leading to hypotension, hyperkalemia, acute renal failure
+- Evidence: ONTARGET trial demonstrated increased adverse events without added CV benefit
+- Management: Do NOT combine ACEi + ARB except under specialist supervision in rare circumstances
+
+ACE Inhibitors/ARBs + NSAIDs
+- Severity: Moderate to Serious
+- Mechanism: NSAIDs reduce prostaglandin-mediated renal vasodilation; blunts antihypertensive effect and increases AKI risk
+- Management: Avoid regular NSAID use; use acetaminophen for analgesia when possible; monitor BP and renal function if NSAIDs must be used
+
+Beta-blockers + Non-dihydropyridine CCBs (diltiazem, verapamil)
+- Severity: Serious
+- Mechanism: Additive negative chronotropic and inotropic effects
+- Clinical significance: Risk of severe bradycardia, heart block, and heart failure
+- Management: Use with extreme caution; avoid if possible in patients with bradycardia, sick sinus syndrome, or heart block
+
+Digoxin + Amiodarone
+- Severity: Serious
+- Mechanism: Amiodarone inhibits P-glycoprotein and CYP2D6/CYP3A4, increasing digoxin levels
+- Management: Reduce digoxin dose by 30-50% when amiodarone is started; monitor digoxin levels and for signs of toxicity (nausea, visual changes, arrhythmias)
+
+Digoxin + Clarithromycin/Erythromycin
+- Severity: Serious
+- Mechanism: Macrolide antibiotics inhibit P-glycoprotein; increase digoxin absorption; decrease gut metabolism by Eggerthella lenta
+- Management: Monitor for digoxin toxicity; consider dose reduction; use azithromycin (lower P-gp inhibition) if macrolide is necessary
+
+2.2 Anticoagulants — Warfarin
+
+Warfarin + Antibiotics (fluoroquinolones, metronidazole, fluconazole, azithromycin)
+- Severity: Serious
+- Mechanism: Broad-spectrum antibiotics alter gut flora (reduce vitamin K synthesis); CYP2C9 inhibition by metronidazole/fluconazole
+- Management: Monitor INR within 3-5 days of starting antibiotic; adjust warfarin dose as needed
+
+Warfarin + NSAIDs
+- Severity: Serious to Contraindicated
+- Mechanism: NSAIDs inhibit COX-1-dependent platelet aggregation; may also displace warfarin from protein binding; GI bleeding risk
+- Management: Avoid combination; use acetaminophen (< 2 g/day to avoid INR elevation) or topical NSAIDs if analgesia needed
+
+Warfarin + Amiodarone
+- Severity: Serious
+- Mechanism: Amiodarone inhibits CYP2C9 (main warfarin metabolic enzyme); effect persists for months after amiodarone discontinuation
+- Management: Reduce warfarin dose by 30-50% when starting amiodarone; monitor INR weekly initially; long half-life means interaction persists 1-3 months after amiodarone stopped
+
+Warfarin + Vitamin K (dietary and supplements)
+- Moderate to Serious depending on consistency
+- Mechanism: Pharmacodynamic antagonism — vitamin K is the cofactor for warfarin's target (epoxide reductase)
+- Management: Encourage consistent dietary vitamin K intake; dose supplements consistently; avoid sudden dietary changes (e.g., major diet changes in green vegetables)
+
+2.3 Antiplatelet Agents
+
+Dual Antiplatelet Therapy (DAPT) + Anticoagulants (triple therapy)
+- Severity: Serious
+- Mechanism: Additive bleeding risk; aspirin + P2Y12 inhibitor + anticoagulant
+- Management: Minimise duration of triple therapy post-ACS/PCI in patients with AF; reassess at 1 month; transition to dual therapy (anticoagulant + single antiplatelet)
+
+Clopidogrel + Omeprazole/Esomeprazole
+- Severity: Moderate
+- Mechanism: Omeprazole inhibits CYP2C19 which converts clopidogrel to its active metabolite; reduces antiplatelet effect
+- Management: Use pantoprazole or ranitidine instead if PPI is needed
+
+==============================================================
+SECTION 3: DIABETES MEDICATION INTERACTIONS
+==============================================================
+
+3.1 Metformin
+
+Metformin + Iodinated Contrast Media
+- Severity: Serious
+- Mechanism: Contrast-induced AKI can lead to metformin accumulation and lactic acidosis
+- Management: Hold metformin at time of contrast administration; do not restart until renal function confirmed stable (typically 48 hours post-procedure)
+
+Metformin + Alcohol
+- Severity: Moderate
+- Mechanism: Both inhibit hepatic gluconeogenesis; additive risk of lactic acidosis; alcohol increases metformin absorption
+- Management: Counsel patients to avoid heavy alcohol use; single drinks with food generally acceptable
+
+3.2 Sulfonylureas
+
+Sulfonylureas + Fluoroquinolones (ciprofloxacin, levofloxacin)
+- Severity: Serious
+- Mechanism: Fluoroquinolones may stimulate insulin secretion via KATP channel inhibition; can cause severe hypoglycemia
+- Management: Monitor blood glucose closely during fluoroquinolone therapy; warn patient; consider alternative antibiotic if possible
+
+Sulfonylureas + Fluconazole
+- Severity: Serious
+- Mechanism: Fluconazole inhibits CYP2C9, increasing sulfonylurea levels (glipizide, glimepiride, glyburide)
+- Management: Reduce sulfonylurea dose; monitor glucose frequently during and after azole therapy
+
+3.3 SGLT-2 Inhibitors
+
+SGLT-2 Inhibitors + Diuretics (thiazides, loop diuretics)
+- Severity: Moderate
+- Mechanism: Additive diuretic effect; risk of volume depletion, orthostatic hypotension
+- Management: Monitor BP and symptoms of dehydration; consider dose reduction of diuretic; ensure adequate hydration
+
+SGLT-2 Inhibitors + Insulin/Secretagogues
+- Severity: Moderate
+- Mechanism: SGLT-2 inhibitors reduce hyperglycemia — combined with insulin or sulfonylureas can cause hypoglycemia
+- Management: When adding SGLT-2 inhibitor to insulin regimen, reduce insulin dose by 10-20% prophylactically; educate patient on hypoglycemia recognition
+
+==============================================================
+SECTION 4: ANTIBIOTIC INTERACTIONS
+==============================================================
+
+4.1 Fluoroquinolones
+
+Fluoroquinolones + Antacids, Calcium, Iron, Zinc, Sucralfate
+- Severity: Serious
+- Mechanism: Chelation — polyvalent cations form insoluble complexes with fluoroquinolones, reducing absorption by up to 90%
+- Management: Administer fluoroquinolone 2 hours before or 6 hours after antacids/supplements
+
+Fluoroquinolones + QT-prolonging drugs (amiodarone, haloperidol, methadone, azithromycin, ondansetron)
+- Severity: Serious to Contraindicated
+- Mechanism: Additive QTc prolongation; risk of torsades de pointes
+- Management: Avoid combination; correct electrolytes (K+, Mg2+); get baseline ECG if combination unavoidable
+
+4.2 Macrolide Antibiotics
+
+Azithromycin/Clarithromycin + Statins (simvastatin, lovastatin)
+- Severity: Serious
+- Mechanism: Macrolides inhibit CYP3A4; dramatically increase simvastatin/lovastatin levels; risk of myopathy/rhabdomyolysis
+- Management: Hold simvastatin/lovastatin during macrolide course; use pravastatin, rosuvastatin (less CYP3A4 dependent), or fluvastatin instead
+
+Clarithromycin + Colchicine
+- Severity: Contraindicated (in renal impairment)
+- Mechanism: Clarithromycin inhibits both CYP3A4 and P-glycoprotein; increases colchicine levels dramatically
+- Management: Avoid combination in renal or hepatic impairment; use azithromycin as alternative macrolide
+
+4.3 Metronidazole
+
+Metronidazole + Alcohol
+- Severity: Serious
+- Mechanism: Metronidazole inhibits aldehyde dehydrogenase causing disulfiram-like reaction (flushing, nausea, tachycardia, vomiting)
+- Management: Avoid all alcohol during treatment and for 48-72 hours after last dose
+
+Metronidazole + Lithium
+- Severity: Serious
+- Mechanism: Metronidazole reduces renal lithium clearance; can cause lithium toxicity
+- Management: Monitor lithium levels closely; reduce lithium dose if needed
+
+==============================================================
+SECTION 5: PSYCHIATRIC MEDICATION INTERACTIONS
+==============================================================
+
+5.1 SSRIs/SNRIs
+
+SSRIs + MAOIs
+- Severity: Contraindicated
+- Mechanism: Serotonin syndrome — potentially fatal combination
+- Management: Allow washout of 14 days after stopping MAOI before starting SSRI (or vice versa); 5 weeks for fluoxetine due to long half-life
+
+SSRIs + Tramadol
+- Severity: Serious
+- Mechanism: Additive serotonergic effect; risk of serotonin syndrome; tramadol also lowers seizure threshold
+- Management: Avoid combination; use alternative opioids (oxycodone, hydrocodone) with caution and monitoring
+
+SSRIs + Anticoagulants (warfarin, DOACs)
+- Severity: Moderate to Serious
+- Mechanism: SSRIs inhibit platelet serotonin uptake, impairing platelet aggregation; additive bleeding risk with anticoagulants
+- Management: Monitor for bleeding; consider PPI prophylaxis; INR monitoring if on warfarin
+
+5.2 Antipsychotics
+
+Antipsychotics + QT-prolonging drugs
+- Severity: Serious to Contraindicated (for haloperidol, ziprasidone, thioridazine)
+- Mechanism: Additive QTc prolongation; torsades de pointes risk
+- Management: ECG monitoring; correct electrolytes; avoid combinations or use lowest effective dose with ECG monitoring
+
+==============================================================
+SECTION 6: STATIN INTERACTIONS
+==============================================================
+
+Statins + CYP3A4 inhibitors (azole antifungals, macrolides, protease inhibitors, amiodarone, diltiazem)
+- Severity: Serious (especially for simvastatin 40-80 mg, lovastatin)
+- Mechanism: CYP3A4 inhibition increases statin plasma concentrations; risk of myopathy, rhabdomyolysis
+- Affected statins: Simvastatin > Lovastatin > Atorvastatin (moderate CYP3A4 involvement)
+- Less affected: Pravastatin (not CYP3A4), Rosuvastatin (minor CYP2C9), Fluvastatin (CYP2C9)
+- Management: Avoid simvastatin/lovastatin with strong CYP3A4 inhibitors; use pravastatin, rosuvastatin, fluvastatin; cap simvastatin at 10 mg with amlodipine or diltiazem
+
+Statins + Fibrates (gemfibrozil > fenofibrate)
+- Severity: Serious (gemfibrozil); Moderate (fenofibrate)
+- Mechanism: Gemfibrozil inhibits CYP2C8 and glucuronidation of statins (especially cerivastatin, simvastatin, atorvastatin)
+- Management: Avoid gemfibrozil + statin combination; fenofibrate is preferred fibrate if combination needed
+
+==============================================================
+REFERENCES
+==============================================================
+
+1. Lexicomp Drug Interactions Database. UpToDate/Wolters Kluwer. 2025.
+2. Stockley's Drug Interactions. 12th Edition. Pharmaceutical Press. 2023.
+3. Micromedex Drug Interactions. IBM. 2025.
+4. Hester EK. Drug-Drug Interactions. In: DiPiro JT, et al. Pharmacotherapy: A Pathophysiologic Approach. 12th ed. McGraw Hill. 2023.

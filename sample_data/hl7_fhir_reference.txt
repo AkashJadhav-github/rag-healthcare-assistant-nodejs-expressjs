@@ -1,0 +1,334 @@
+HL7 FHIR R4 REFERENCE GUIDE FOR HEALTHCARE SYSTEMS INTEGRATION
+Version 1.5 | Updated 2026 | Internal Reference Document
+
+==============================================================
+SECTION 1: OVERVIEW OF HL7 FHIR
+==============================================================
+
+HL7 Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is a standard for electronic healthcare data exchange developed by Health Level Seven International (HL7). FHIR R4 (Release 4) is the current normative release and the version required by ONC's 21st Century Cures Act final rule for certified health IT modules.
+
+FHIR Key Principles:
+- RESTful web services over HTTP
+- Resources expressed in JSON or XML
+- Modular design — resources represent single clinical concepts
+- Supports full CRUD operations (Create, Read, Update, Delete) + Search
+- Strong focus on implementability and real-world usability
+
+FHIR Maturity Model (FMM):
+Resources are assigned FMM levels 0-5 (0=draft, 5=normative). Normative resources (e.g., Patient, Observation, Condition) have locked definitions; trial-use resources may change between versions.
+
+==============================================================
+SECTION 2: CORE FHIR RESOURCES
+==============================================================
+
+2.1 Patient Resource
+
+The Patient resource covers demographic and administrative information about an individual receiving care.
+
+Key elements:
+- id: Logical identifier (server-assigned or user-specified)
+- identifier: Business identifiers (MRN, SSN, insurance ID) — use Identifier.system + Identifier.value
+- name: HumanName — family, given, prefix, suffix, use (official/usual/nickname)
+- birthDate: YYYY-MM-DD format
+- gender: male | female | other | unknown (administrative gender)
+- address: Multiple addresses with use (home/work/temp/billing)
+- telecom: ContactPoint — phone, email, fax with use and rank
+- contact: Emergency contacts with relationship codes
+- communication: Languages spoken; preferred language flag
+- managingOrganization: Reference to the Organisation managing this patient record
+
+FHIR Patient Example (JSON):
+```json
+{
+  "resourceType": "Patient",
+  "id": "example-patient-001",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "http://hospital.example.org/fhir/mrn",
+      "value": "MRN-123456"
+    }
+  ],
+  "name": [
+    {
+      "use": "official",
+      "family": "Smith",
+      "given": ["Jane", "Marie"]
+    }
+  ],
+  "birthDate": "1975-03-21",
+  "gender": "female",
+  "address": [
+    {
+      "use": "home",
+      "line": ["123 Main St"],
+      "city": "Springfield",
+      "state": "IL",
+      "postalCode": "62701",
+      "country": "US"
+    }
+  ]
+}
+```
+
+2.2 Observation Resource
+
+Used to record measurements and assertions about a patient (vital signs, lab results, clinical findings).
+
+Key elements:
+- status: registered | preliminary | final | amended | corrected | cancelled
+- category: vital-signs | laboratory | social-history | exam | survey | imaging
+- code: LOINC code identifying what was measured
+- subject: Reference to Patient
+- effectiveDateTime / effectivePeriod: When observation was made
+- valueQuantity / valueCodeableConcept / valueString: The actual result
+- interpretation: high | low | normal | critical-high | critical-low
+- referenceRange: Normal range for the measurement
+- component: For multi-component observations (e.g., systolic + diastolic BP)
+
+Blood Pressure Observation Example (FHIR R4):
+```json
+{
+  "resourceType": "Observation",
+  "id": "bp-example-001",
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs",
+          "display": "Vital Signs"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "55284-4",
+        "display": "Blood pressure systolic and diastolic"
+      }
+    ]
+  },
+  "subject": { "reference": "Patient/example-patient-001" },
+  "effectiveDateTime": "2026-05-12T09:30:00Z",
+  "component": [
+    {
+      "code": {
+        "coding": [{ "system": "http://loinc.org", "code": "8480-6", "display": "Systolic blood pressure" }]
+      },
+      "valueQuantity": { "value": 135, "unit": "mmHg", "system": "http://unitsofmeasure.org", "code": "mm[Hg]" }
+    },
+    {
+      "code": {
+        "coding": [{ "system": "http://loinc.org", "code": "8462-4", "display": "Diastolic blood pressure" }]
+      },
+      "valueQuantity": { "value": 85, "unit": "mmHg", "system": "http://unitsofmeasure.org", "code": "mm[Hg]" }
+    }
+  ]
+}
+```
+
+2.3 Condition Resource
+
+Records a clinical condition, problem, diagnosis, or other event, situation, or clinical concept.
+
+Key elements:
+- clinicalStatus: active | recurrence | relapse | inactive | remission | resolved
+- verificationStatus: unconfirmed | provisional | differential | confirmed | refuted | entered-in-error
+- category: problem-list-item | encounter-diagnosis | health-concern
+- severity: mild | moderate | severe
+- code: ICD-10, SNOMED CT, or other code identifying the condition
+- subject: Reference to Patient
+- onsetDateTime / onsetPeriod: When condition began
+- abatementDateTime: When condition resolved
+
+Hypertension Condition Example:
+```json
+{
+  "resourceType": "Condition",
+  "id": "htn-example-001",
+  "clinicalStatus": {
+    "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/condition-clinical", "code": "active" }]
+  },
+  "verificationStatus": {
+    "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status", "code": "confirmed" }]
+  },
+  "category": [
+    {
+      "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/condition-category", "code": "problem-list-item", "display": "Problem List Item" }]
+    }
+  ],
+  "code": {
+    "coding": [
+      { "system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "I10", "display": "Essential (primary) hypertension" },
+      { "system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder" }
+    ]
+  },
+  "subject": { "reference": "Patient/example-patient-001" },
+  "onsetDateTime": "2018-06-15"
+}
+```
+
+2.4 MedicationRequest Resource
+
+Represents a prescription or order for a medication.
+
+Key elements:
+- status: active | on-hold | cancelled | completed | entered-in-error | stopped | draft | unknown
+- intent: proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
+- medication[x]: medicationCodeableConcept (RxNorm) or medicationReference
+- subject: Reference to Patient
+- requester: Reference to Practitioner who ordered
+- dosageInstruction: DosageInstruction array (dose, route, frequency, duration)
+- dispenseRequest: Quantity, number of refills, validity period
+
+Metformin Prescription Example:
+```json
+{
+  "resourceType": "MedicationRequest",
+  "id": "metformin-rx-001",
+  "status": "active",
+  "intent": "order",
+  "medicationCodeableConcept": {
+    "coding": [
+      { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "861007", "display": "Metformin Hydrochloride 500 MG Oral Tablet" }
+    ]
+  },
+  "subject": { "reference": "Patient/example-patient-001" },
+  "dosageInstruction": [
+    {
+      "text": "500 mg orally twice daily with meals",
+      "route": {
+        "coding": [{ "system": "http://snomed.info/sct", "code": "26643006", "display": "Oral route" }]
+      },
+      "doseAndRate": [
+        {
+          "doseQuantity": { "value": 500, "unit": "mg", "system": "http://unitsofmeasure.org", "code": "mg" }
+        }
+      ],
+      "timing": {
+        "repeat": { "frequency": 2, "period": 1, "periodUnit": "d" }
+      }
+    }
+  ]
+}
+```
+
+==============================================================
+SECTION 3: FHIR SEARCH PARAMETERS
+==============================================================
+
+FHIR supports rich search capabilities via URL query parameters.
+
+Common search patterns:
+
+Search patients by family name:
+GET /Patient?family=Smith
+
+Search active conditions by SNOMED code:
+GET /Condition?subject=Patient/123&code=38341003&clinical-status=active
+
+Search vital sign observations:
+GET /Observation?patient=Patient/123&category=vital-signs&_sort=-date&_count=10
+
+Search for HbA1c results in date range:
+GET /Observation?patient=Patient/123&code=4548-4&date=ge2025-01-01&date=le2025-12-31
+
+Chained search (patient identifier through observations):
+GET /Observation?patient.identifier=MRN-123456&code=4548-4
+
+Reverse chained (find patients with active hypertension):
+GET /Patient?_has:Condition:patient:code=I10
+
+Include referenced resources in one call:
+GET /MedicationRequest?patient=Patient/123&_include=MedicationRequest:medication&status=active
+
+==============================================================
+SECTION 4: FHIR TERMINOLOGY SYSTEMS
+==============================================================
+
+SNOMED CT (Systematized Nomenclature of Medicine — Clinical Terms)
+- System URI: http://snomed.info/sct
+- Scope: Clinical findings, procedures, body structures, organisms, substances
+- Used in: Condition.code, Observation.code, Procedure.code
+
+LOINC (Logical Observation Identifiers Names and Codes)
+- System URI: http://loinc.org
+- Scope: Laboratory tests, vital signs, clinical observations, surveys
+- Key codes: 8480-6 (systolic BP), 8462-4 (diastolic BP), 4548-4 (HbA1c), 2339-0 (glucose)
+
+RxNorm
+- System URI: http://www.nlm.nih.gov/research/umls/rxnorm
+- Scope: Drug names and normalized drug information
+- Used in: MedicationRequest, MedicationStatement
+
+ICD-10-CM (US Clinical Modification)
+- System URI: http://hl7.org/fhir/sid/icd-10-cm
+- Scope: Diagnoses and billing codes
+- Common codes: I10 (essential HTN), E11 (T2DM), N18 (CKD), J44 (COPD)
+
+UCUM (Unified Code for Units of Measure)
+- System URI: http://unitsofmeasure.org
+- Scope: All physical quantities (mg, mmHg, mL, etc.)
+- Always use canonical UCUM codes in valueQuantity.code
+
+==============================================================
+SECTION 5: SMART ON FHIR
+==============================================================
+
+SMART on FHIR (Substitutable Medical Applications and Reusable Technologies) is the authorization framework for FHIR, based on OAuth 2.0 and OpenID Connect.
+
+OAuth 2.0 grant types:
+- Authorization Code: For user-facing apps; involves browser redirect + code exchange
+- Client Credentials: For backend/system-to-system apps (no user interaction)
+
+SMART scopes:
+- patient/*.read — read all resources for the in-context patient
+- patient/Observation.read — read Observations for in-context patient
+- user/*.* — full access to all patients user is authorised to access
+- launch — allows app to receive the EHR launch context
+- openid fhirUser — request OpenID Connect identity
+
+SMART Launch Sequence (EHR Launch):
+1. EHR launches app URL with `launch` token and `iss` (FHIR server URL) parameters
+2. App redirects to EHR's authorize endpoint with scope, redirect_uri, launch token
+3. EHR authenticates user, obtains consent, returns authorization code
+4. App exchanges code for access_token + refresh_token + context (patient, encounter)
+5. App uses access_token as Bearer token for FHIR API calls
+
+Well-Known URL for SMART configuration:
+GET {FHIR_BASE}/.well-known/smart-configuration
+
+Returns: authorization_endpoint, token_endpoint, scopes_supported, capabilities
+
+==============================================================
+SECTION 6: BULK DATA ACCESS (FHIR R4)
+==============================================================
+
+FHIR Bulk Data Export (HL7 FHIR Bulk Data Access IG v2.0.0) enables population-level data export.
+
+Kick-off request:
+GET {FHIR_BASE}/$export?_type=Patient,Observation,Condition,MedicationRequest
+Prefer: respond-async
+
+Response: 202 Accepted with Content-Location header pointing to status endpoint.
+
+Status polling:
+GET {status_url}
+- Returns 202 while in progress
+- Returns 200 when complete with body containing output file URLs
+
+Output format: newline-delimited JSON (NDJSON) — one FHIR resource per line.
+
+==============================================================
+REFERENCES
+==============================================================
+
+1. HL7 FHIR R4 Specification. http://hl7.org/fhir/R4. 2019.
+2. SMART App Launch IG. https://hl7.org/fhir/smart-app-launch/. 2021.
+3. HL7 Bulk Data Access Implementation Guide v2.0.0. https://hl7.org/fhir/uv/bulkdata/. 2023.
+4. ONC 21st Century Cures Act Interoperability Final Rule. 85 FR 25642. 2020.
+5. US Core Implementation Guide v6.1.0. https://hl7.org/fhir/us/core/. 2023.

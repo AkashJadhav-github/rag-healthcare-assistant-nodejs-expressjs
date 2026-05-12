@@ -1,0 +1,99 @@
+groups:
+  - name: rag_healthcare_nodejs_alerts
+    rules:
+
+      # ── Query latency warnings ──────────────────────────────────────────────
+
+      - alert: HighQueryLatency
+        expr: >
+          histogram_quantile(0.95,
+            rate(http_request_duration_seconds_bucket{
+              job="rag-api",
+              route=~"/api/v1/knowledge/ask.*"
+            }[5m])
+          ) > 2
+        for: 2m
+        labels:
+          severity: warning
+          service: rag-healthcare-nodejs
+        annotations:
+          summary: "High query latency detected (p95 > 2s)"
+          description: >
+            The 95th-percentile query latency has exceeded 2 seconds for more than
+            2 minutes. Current value: {{ $value | humanizeDuration }}.
+
+      - alert: CriticalQueryLatency
+        expr: >
+          histogram_quantile(0.95,
+            rate(http_request_duration_seconds_bucket{
+              job="rag-api",
+              route=~"/api/v1/knowledge/ask.*"
+            }[5m])
+          ) > 5
+        for: 1m
+        labels:
+          severity: critical
+          service: rag-healthcare-nodejs
+        annotations:
+          summary: "Critical query latency (p95 > 5s)"
+          description: >
+            The 95th-percentile query latency has exceeded 5 seconds for more than
+            1 minute. Immediate investigation required.
+            Current value: {{ $value | humanizeDuration }}.
+
+      # ── Error rate ──────────────────────────────────────────────────────────
+
+      - alert: HighErrorRate
+        expr: >
+          (
+            rate(http_requests_total{job="rag-api", status=~"5.."}[5m])
+            /
+            rate(http_requests_total{job="rag-api"}[5m])
+          ) * 100 > 5
+        for: 2m
+        labels:
+          severity: warning
+          service: rag-healthcare-nodejs
+        annotations:
+          summary: "High HTTP error rate (> 5%)"
+          description: >
+            The API error rate (5xx responses) has exceeded 5% for 2 minutes.
+            Current value: {{ $value | humanize }}%.
+
+      # ── Infrastructure availability ─────────────────────────────────────────
+
+      - alert: DatabaseDown
+        expr: up{job="postgres"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: rag-healthcare-nodejs
+        annotations:
+          summary: "PostgreSQL is down"
+          description: >
+            The PostgreSQL exporter target has been unreachable for 1 minute.
+            All database-dependent operations are failing.
+
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: warning
+          service: rag-healthcare-nodejs
+        annotations:
+          summary: "Redis is down"
+          description: >
+            The Redis exporter target has been unreachable for 1 minute.
+            Caching and rate-limiting may be degraded.
+
+      - alert: APIDown
+        expr: up{job="rag-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: rag-healthcare-nodejs
+        annotations:
+          summary: "RAG Healthcare API is down"
+          description: >
+            The rag-api Prometheus scrape target has been unreachable for 1 minute.
+            The application may be completely unavailable.

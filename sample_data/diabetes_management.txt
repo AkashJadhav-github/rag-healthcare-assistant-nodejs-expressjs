@@ -1,0 +1,250 @@
+DIABETES MELLITUS — MANAGEMENT PROTOCOL
+Version 3.1 | Updated 2026 | Internal Reference Document
+
+==============================================================
+SECTION 1: DIAGNOSIS AND CLASSIFICATION
+==============================================================
+
+Diabetes mellitus (DM) is a group of metabolic diseases characterised by chronic hyperglycemia resulting from defects in insulin secretion, insulin action, or both.
+
+Diagnostic Criteria (any one of the following confirms DM):
+1. Fasting plasma glucose (FPG) >= 126 mg/dL (7.0 mmol/L) — no caloric intake for >=8 hours
+2. 2-hour plasma glucose >= 200 mg/dL (11.1 mmol/L) during 75 g OGTT
+3. HbA1c >= 6.5% (48 mmol/mol) — using NGSP-certified method
+4. Random plasma glucose >= 200 mg/dL with classic symptoms of hyperglycemia (polyuria, polydipsia, unexplained weight loss)
+
+Note: In asymptomatic patients, criteria 1, 2, or 3 require confirmation by repeat testing on a second occasion.
+
+Prediabetes criteria:
+- Impaired Fasting Glucose (IFG): FPG 100-125 mg/dL (5.6-6.9 mmol/L)
+- Impaired Glucose Tolerance (IGT): 2-h glucose 140-199 mg/dL during OGTT
+- HbA1c 5.7%-6.4% (ADA criteria) or 6.0%-6.4% (WHO/IDF criteria)
+
+Classification:
+- Type 1 DM (T1DM): Autoimmune beta-cell destruction; absolute insulin deficiency
+- Type 2 DM (T2DM): Progressive insulin secretory defect against background of insulin resistance; accounts for ~90-95% of cases
+- Gestational DM (GDM): DM diagnosed in second or third trimester of pregnancy not clearly pre-existing
+- Other specific types: Monogenic (MODY), pancreatic DM, drug-induced (steroids, antipsychotics)
+
+==============================================================
+SECTION 2: GLYCEMIC TARGETS
+==============================================================
+
+General targets (ADA Standards of Medical Care 2025):
+
+Adults — Non-pregnant:
+- HbA1c: < 7.0% for most patients
+- Fasting glucose (preprandial): 80-130 mg/dL
+- Postprandial glucose (1-2h after meal start): < 180 mg/dL
+
+Individualised targets:
+- Stringent (HbA1c ~6.0-6.5%): Young patients, short disease duration, no cardiovascular disease, long life expectancy, motivated patient with access to intensive management and low hypoglycemia risk
+- Less stringent (HbA1c 7.5-8.0%): Older patients, limited life expectancy, severe hypoglycemia unawareness, multiple comorbidities, limited resources/support
+
+Time in Range (TIR) targets using CGM:
+- Target range 70-180 mg/dL: >70% of time
+- Below range <70 mg/dL: <4% of time
+- Below range <54 mg/dL: <1% of time
+- Above range >180 mg/dL: <25% of time
+- Above range >250 mg/dL: <5% of time
+
+==============================================================
+SECTION 3: MANAGEMENT — TYPE 2 DIABETES
+==============================================================
+
+3.1 Initial Assessment
+
+At diagnosis of T2DM, perform:
+- HbA1c, fasting glucose
+- Fasting lipid panel (total, LDL, HDL, triglycerides)
+- Comprehensive metabolic panel (CMP): electrolytes, BUN, creatinine, eGFR, LFTs
+- Urine albumin-to-creatinine ratio (UACR), urinalysis
+- Blood pressure, weight, BMI, waist circumference
+- Foot exam (monofilament, vibration, pulses, inspect)
+- Dilated funduscopic exam
+- Dental exam recommendation
+- Thyroid function tests (TSH) — screen for thyroid disease
+- Depression screen (PHQ-9)
+- Cardiovascular risk assessment (ASCVD risk score)
+
+3.2 Lifestyle Intervention
+
+Medical Nutrition Therapy (MNT):
+- Reduce total caloric intake; target weight loss of 5-10% for overweight/obese patients
+- Reduce refined carbohydrates, added sugars, and sugar-sweetened beverages
+- Mediterranean diet, DASH diet, or low-carbohydrate diet all demonstrated benefit
+- Total carbohydrate monitoring (carb counting) remains an effective strategy
+- Avoid fad diets without evidence for long-term safety in DM
+
+Physical activity:
+- Aerobic: >=150 minutes/week moderate-intensity, distributed over >=3 days with no more than 2 consecutive days off
+- Resistance training: >=2-3 sessions per week on non-consecutive days
+- Reduce prolonged sitting — break up sedentary time every 30 minutes
+
+Weight management:
+- Intensive lifestyle program (>=16 sessions in 6 months) targeting 7% weight loss reduces DM progression in prediabetes
+- In T2DM, weight loss of 5-10% improves glycemia; 15% weight loss can induce DM remission in some patients
+
+3.3 Pharmacological Management
+
+First-line therapy:
+Metformin remains the preferred initial agent for T2DM:
+- Start at 500 mg once or twice daily with meals; titrate over 4-8 weeks
+- Target dose: 1000 mg twice daily (maximum 2550 mg/day)
+- Mechanism: Reduces hepatic glucose production; improves insulin sensitivity
+- Contraindications: eGFR < 30 mL/min/1.73m2 (hold if eGFR 30-45); iodinated contrast (hold temporarily); acute/unstable heart failure; hepatic failure
+- Common side effects: GI (nausea, diarrhea) — minimised by taking with food and slow titration
+- Long-term use associated with B12 deficiency — monitor annually
+
+When to add second agent (HbA1c >= 7.5% on metformin or initial HbA1c >= 9% with symptoms):
+
+Priority considerations for second agent:
+1. Established ASCVD or high CV risk → SGLT-2 inhibitor or GLP-1 receptor agonist with proven CV benefit
+2. Heart failure with reduced EF → SGLT-2 inhibitor
+3. CKD (eGFR 25-60 or UACR >= 300 mg/g) → SGLT-2 inhibitor or GLP-1 RA
+4. Needs weight loss → GLP-1 receptor agonist or SGLT-2 inhibitor
+5. Hypoglycemia risk → avoid sulfonylureas; prefer DPP-4 inhibitors, GLP-1 RA, SGLT-2 inhibitors
+
+Medication Classes:
+
+GLP-1 Receptor Agonists:
+- Semaglutide (Ozempic): 0.5 mg SQ weekly (start), titrate to 1 mg or 2 mg
+- Semaglutide oral (Rybelsus): 3 mg daily × 30 days, then 7 mg, then 14 mg
+- Liraglutide (Victoza): 0.6 mg SQ daily × 1 week, then 1.2 mg, then 1.8 mg
+- Dulaglutide (Trulicity): 0.75 mg SQ weekly, titrate to 1.5 mg, 3 mg, 4.5 mg
+- Key benefits: Weight loss (3-5 kg), HbA1c reduction 1-1.5%, CV risk reduction in high-risk patients
+- Side effects: Nausea, vomiting, diarrhea; rare but serious: pancreatitis, gallbladder disease; thyroid C-cell tumors (rodents; avoid in personal/family history of MTC or MEN2)
+
+SGLT-2 Inhibitors:
+- Empagliflozin (Jardiance): 10 mg once daily, may increase to 25 mg
+- Dapagliflozin (Farxiga): 5 mg once daily, may increase to 10 mg
+- Canagliflozin (Invokana): 100 mg once daily, may increase to 300 mg
+- Key benefits: HbA1c reduction 0.7-1%, weight loss 2-3 kg, BP reduction 3-5/2 mmHg, CV risk reduction, heart failure hospitalisation reduction, CKD progression reduction
+- Side effects: Genital mycotic infections, UTI, DKA (rare in T2DM), volume depletion, fractures (canagliflozin), lower limb amputations (canagliflozin — monitor)
+- Contraindicated: eGFR < 30; T1DM (increased DKA risk); avoid with recurrent UTIs
+
+DPP-4 Inhibitors:
+- Sitagliptin (Januvia): 100 mg once daily (adjust for CKD)
+- Saxagliptin (Onglyza): 2.5-5 mg once daily
+- Alogliptin (Nesina): 25 mg once daily (adjust for CKD)
+- Key benefits: Well-tolerated, weight neutral, low hypoglycemia risk
+- Side effects: Nasopharyngitis; saxagliptin associated with increased heart failure hospitalisation risk (avoid in HFrEF)
+
+Sulfonylureas:
+- Glipizide 5-40 mg once or twice daily (lower dose in elderly)
+- Glimepiride 1-4 mg once daily
+- Glyburide (avoid in elderly — prolonged action, higher hypoglycemia risk)
+- Key benefits: Inexpensive, effective HbA1c reduction 1-1.5%
+- Side effects: Hypoglycemia (most significant concern), weight gain 2-3 kg
+
+Insulin initiation in T2DM:
+Indications: HbA1c >= 10%, marked hyperglycemia with symptoms, or failure of oral/GLP-1 agents.
+
+Starting point:
+- Basal insulin: Insulin glargine (Lantus/Basaglar), detemir (Levemir), or degludec (Tresiba)
+- Starting dose: 10 units/day or 0.1-0.2 units/kg/day
+- Titrate by 2 units every 3 days to reach fasting glucose 80-130 mg/dL
+- If HbA1c still above target despite optimised basal: add prandial insulin (rapid-acting) 4 units with largest meal
+
+==============================================================
+SECTION 4: MONITORING
+==============================================================
+
+Self-Monitoring of Blood Glucose (SMBG):
+- T1DM on MDI: >= 4 times daily (pre-meals and bedtime)
+- T2DM on insulin: At least 1-2 times daily; more if doses being adjusted
+- T2DM not on insulin: Frequency individualised; SMBG with symptomatic hypoglycemia
+- Continuous Glucose Monitoring (CGM): Recommended for T1DM and T2DM on intensive insulin regimens; increasing use in T2DM on basal insulin
+
+HbA1c monitoring:
+- Every 3 months until at glycemic goal, then every 6 months
+- HbA1c may be unreliable in haemolytic anaemia, haemoglobinopathies — use fructosamine or CGM-derived GMI
+
+Annual monitoring:
+- HbA1c, lipid panel, CMP (eGFR, creatinine)
+- UACR (spot urine albumin-to-creatinine ratio)
+- Blood pressure at every visit
+- Comprehensive foot examination
+- Dilated eye exam (if last exam normal, every 1-2 years is acceptable in stable T1DM; annually in T2DM)
+- Dental examination
+- Influenza, pneumococcal (PCV15 or PPSV23), hepatitis B vaccination per guidelines
+- Depression screen
+
+==============================================================
+SECTION 5: DIABETIC COMPLICATIONS
+==============================================================
+
+5.1 Diabetic Nephropathy (DKD)
+
+Defined by persistently elevated UACR >=30 mg/g or eGFR <60 mL/min/1.73m2.
+
+Stages of albuminuria:
+- A1: UACR < 30 (normal to mildly increased)
+- A2: UACR 30-300 (moderately increased — formerly "microalbuminuria")
+- A3: UACR > 300 (severely increased — formerly "macroalbuminuria")
+
+Management:
+- Optimise glycemic control (HbA1c < 7%)
+- Optimise BP control (target < 130/80 mmHg); ACEi or ARB preferred
+- Finerenone (SGLT-2 inhibitor or finerenone) to reduce CKD progression
+- Avoid nephrotoxins: NSAIDs, contrast agents, aminoglycosides when possible
+- Dietary protein: 0.8 g/kg/day (avoid high protein diet); restrict phosphorus in advanced CKD
+- Referral to nephrology when eGFR < 30 or complex management needed
+
+5.2 Diabetic Retinopathy
+
+Screening: Annual dilated funduscopic exam or retinal photography for T2DM; 5 years after diagnosis for T1DM.
+
+Stages:
+- Non-proliferative diabetic retinopathy (NPDR): Mild, moderate, severe
+- Proliferative diabetic retinopathy (PDR): New vessel formation; vision-threatening
+- Diabetic macular edema (DME): Can occur at any stage; most common cause of vision loss
+
+Treatment: Optimise glycemia and BP. Intra-vitreal anti-VEGF injections (ranibizumab, aflibercept, bevacizumab) for center-involving DME and PDR. Laser photocoagulation for non-center DME and high-risk PDR.
+
+5.3 Diabetic Neuropathy
+
+Distal Symmetric Polyneuropathy (DSPN) — most common type:
+- Symptoms: Numbness, tingling, burning pain, loss of sensation (stocking-glove distribution)
+- Annual screening: 10 g monofilament + vibration (128 Hz tuning fork) + pinprick + ankle reflexes
+- Treatment: Optimise glycemia; pregabalin, duloxetine, or gabapentin for painful neuropathy
+
+Cardiovascular Autonomic Neuropathy (CAN):
+- Resting tachycardia, exercise intolerance, orthostatic hypotension, silent MI
+
+Diabetic foot:
+- High-risk features: Peripheral neuropathy + peripheral arterial disease + previous amputation
+- Care: Regular foot exam at every visit; patient education on foot care; therapeutic footwear; wound care referral for ulcers
+
+==============================================================
+SECTION 6: HYPOGLYCEMIA MANAGEMENT
+==============================================================
+
+Definition: Blood glucose < 70 mg/dL (3.9 mmol/L). Severe: requiring assistance from another person.
+
+Alert value: < 54 mg/dL (3.0 mmol/L) — action required.
+
+Level classification:
+- Level 1: 54-70 mg/dL — clinically significant; not immediately dangerous
+- Level 2: < 54 mg/dL — serious alert requiring immediate action
+- Level 3: Severe cognitive impairment requiring external assistance
+
+Acute treatment — Rule of 15:
+- Conscious patient: 15-20 g fast-acting carbohydrates
+  Examples: 4 oz (120 mL) fruit juice, 3-4 glucose tablets, 1 tablespoon honey
+- Recheck in 15 minutes; if still < 70 mg/dL, repeat
+- Follow with a snack or meal if the next scheduled meal is >1 hour away
+
+Unconscious/unable to swallow:
+- Glucagon: Nasal glucagon (Baqsimi) 3 mg IN; or glucagon IM/SQ 1 mg (adult), 0.5 mg (<25 kg)
+- IV dextrose (D50): 25 mL IV (12.5 g) if IV access available
+
+Hypoglycemia unawareness: Loss of warning symptoms at glucose <70 mg/dL. Managed by relaxing glycemic targets until hypoglycemia awareness is restored. Structured hypoglycemia avoidance programs (e.g., HAATT) may help.
+
+==============================================================
+REFERENCES
+==============================================================
+
+1. American Diabetes Association Professional Practice Committee. Standards of Medical Care in Diabetes—2025. Diabetes Care. 2025;48(Suppl 1):S1-S352.
+2. Davies MJ, et al. Management of Hyperglycemia in Type 2 Diabetes, 2022. A Consensus Report by the ADA and EASD. Diabetes Care. 2022;45(11):2753-2786.
+3. Kidney Disease: Improving Global Outcomes (KDIGO) Diabetes Work Group. KDIGO 2022 Clinical Practice Guideline for Diabetes Management in Chronic Kidney Disease. Kidney Int. 2022;102(5S):S1-S127.
