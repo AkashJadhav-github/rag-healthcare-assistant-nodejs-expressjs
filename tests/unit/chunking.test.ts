@@ -42,7 +42,7 @@ jest.mock('tiktoken', () => ({
 // Module under test (imported AFTER the mock is in place)
 // ---------------------------------------------------------------------------
 
-import { MedicalTextChunker, ChunkResult } from '../../src/rag/chunking';
+import { MedicalTextChunker } from '../../src/rag/chunking';
 
 // ---------------------------------------------------------------------------
 // Helpers

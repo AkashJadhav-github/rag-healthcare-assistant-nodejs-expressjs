@@ -107,7 +107,6 @@ import express, { Router, Request, Response, NextFunction } from 'express';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
 import prisma from '../../src/db/postgres';
-import { cacheService } from '../../src/services/cache.service';
 import { login, getMe } from '../../src/api/controllers/auth.controller';
 import { globalErrorHandler } from '../../src/utils/errors';
 

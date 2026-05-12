@@ -3,7 +3,6 @@ import path from 'path';
 import crypto from 'crypto';
 import pdfParse from 'pdf-parse';
 import mammoth from 'mammoth';
-import { config } from '../config/config';
 import { pineconeService } from '../services/pinecone.service';
 import { embeddingService } from './embeddings';
 import { medicalTextChunker, MedicalTextChunker } from './chunking';

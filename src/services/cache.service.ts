@@ -8,7 +8,7 @@ const log = createLogger('CacheService');
 // Redis connection options
 // ---------------------------------------------------------------------------
 
-function buildRedisOptions(url: string): RedisOptions {
+function buildRedisOptions(): RedisOptions {
   return {
     // Parse connection details from URL but also set sensible defaults
     lazyConnect: true,
@@ -39,7 +39,7 @@ export class CacheService {
   private readonly defaultTTL: number = 3600; // 1 hour
 
   constructor(redisUrl: string) {
-    this.client = new Redis(redisUrl, buildRedisOptions(redisUrl));
+    this.client = new Redis(redisUrl, buildRedisOptions());
 
     this.client.on('connect', () => {
       log.info('Redis connection established');

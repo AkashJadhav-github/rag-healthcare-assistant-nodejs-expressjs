@@ -82,21 +82,21 @@ const PHI_PATTERNS: PHIPattern[] = [
   // ── Email addresses ───────────────────────────────────────────────────────
   {
     name: 'EMAIL',
-    regex: /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/g,
+    regex: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g,
     mask: MASK.EMAIL,
   },
 
   // ── DOB: explicitly labelled date of birth ───────────────────────────────
   {
     name: 'DOB',
-    regex: /\b(?:DOB|Date\s+of\s+Birth|birth(?:day|date)?)[:\s]+\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}/gi,
+    regex: /\b(?:DOB|Date\s+of\s+Birth|birth(?:day|date)?)[:\s]+\d{1,2}[/-]\d{1,2}[/-]\d{2,4}/gi,
     mask: MASK.DOB,
   },
 
   // ── Dates: MM/DD/YYYY, MM-DD-YYYY ────────────────────────────────────────
   {
     name: 'DATE',
-    regex: /\b(?:0?[1-9]|1[0-2])[/\-](?:0?[1-9]|[12]\d|3[01])[/\-](?:19|20)\d{2}\b/g,
+    regex: /\b(?:0?[1-9]|1[0-2])[/-](?:0?[1-9]|[12]\d|3[01])[/-](?:19|20)\d{2}\b/g,
     mask: MASK.DATE,
   },
 
