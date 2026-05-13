@@ -4,6 +4,11 @@ import { createLogger } from '../../utils/logger';
 
 const log = createLogger('RateLimitMiddleware');
 
+const API_WINDOW_MS = 60 * 1000; // 1 minute
+const API_MAX_REQUESTS = 60;
+const AUTH_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+const AUTH_MAX_REQUESTS = 10;
+
 // ---------------------------------------------------------------------------
 // Shared rate-limit response handler
 // ---------------------------------------------------------------------------
@@ -29,8 +34,8 @@ function rateLimitHandler(req: Request, res: Response): void {
 // ---------------------------------------------------------------------------
 
 export const apiLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 60,
+  windowMs: API_WINDOW_MS,
+  max: API_MAX_REQUESTS,
   standardHeaders: true,  // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false,   // Disable the `X-RateLimit-*` headers
   keyGenerator: (req: Request): string => {
@@ -54,8 +59,8 @@ export const apiLimiter = rateLimit({
 // ---------------------------------------------------------------------------
 
 export const authLimiter = rateLimit({
-  windowMs: 5 * 60 * 1000, // 5 minutes
-  max: 10,
+  windowMs: AUTH_WINDOW_MS,
+  max: AUTH_MAX_REQUESTS,
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: (req: Request): string => {

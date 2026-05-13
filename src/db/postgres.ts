@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { createLogger } from '../utils/logger';
 
 const log = createLogger('PostgresDB');
@@ -32,10 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Forward Prisma query events to Winston at appropriate log levels
-// (The event types are only available once @prisma/client is generated,
-//  so we use `any` to remain portable before the first `prisma generate`.)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(prisma as any).$on('query', (e: any) => {
+prisma.$on('query', (e: Prisma.QueryEvent) => {
   log.debug('Prisma query', {
     query: e.query,
     params: e.params,
@@ -43,18 +40,15 @@ if (process.env.NODE_ENV !== 'production') {
   });
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(prisma as any).$on('info', (e: any) => {
+prisma.$on('info', (e: Prisma.LogEvent) => {
   log.info('Prisma info', { message: e.message });
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(prisma as any).$on('warn', (e: any) => {
+prisma.$on('warn', (e: Prisma.LogEvent) => {
   log.warn('Prisma warning', { message: e.message });
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(prisma as any).$on('error', (e: any) => {
+prisma.$on('error', (e: Prisma.LogEvent) => {
   log.error('Prisma error', { message: e.message });
 });
 

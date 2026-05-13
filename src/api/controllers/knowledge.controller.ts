@@ -98,7 +98,8 @@ export const ask = asyncHandler(
     }
 
     const { query, sessionId, maxSources, includeSources } = parseResult.data;
-    const userId = req.user!.id;
+    if (!req.user) throw new Error('Unauthorized');
+    const userId = req.user.id;
     const resolvedSessionId = sessionId ?? uuidv4();
 
     // ── Sanitize query (strip prompt-injection patterns) ──────────────────
@@ -261,7 +262,8 @@ export const ingest = asyncHandler(
       );
     }
 
-    const userId = req.user!.id;
+    if (!req.user) throw new Error('Unauthorized');
+    const userId = req.user.id;
     const title = (req.body.title as string | undefined) ?? path.basename(file.originalname, path.extname(file.originalname));
     const category = (req.body.category as string | undefined) ?? 'OTHER';
 
@@ -377,7 +379,8 @@ export const ingest = asyncHandler(
  */
 export const getHistory = asyncHandler(
   async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
-    const userId = req.user!.id;
+    if (!req.user) throw new Error('Unauthorized');
+    const userId = req.user.id;
 
     const page = Math.max(1, parseInt((req.query.page as string) ?? '1', 10));
     const pageSize = Math.min(
