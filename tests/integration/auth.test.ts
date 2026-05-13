@@ -25,14 +25,16 @@ const MOCK_USER = {
   updatedAt: new Date('2026-05-10T09:00:00Z'),
 };
 
-// Prisma mock
-const mockPrismaUser = {
-  findUnique: jest.fn(),
-  update: jest.fn().mockResolvedValue(MOCK_USER),
-};
-
+// Prisma mock — factory must not reference const variables (hoisting issue).
+// __esModule: true is required so the esModuleInterop helper uses .default correctly.
 jest.mock('../../src/db/postgres', () => ({
-  default: { user: mockPrismaUser },
+  __esModule: true,
+  default: {
+    user: {
+      findUnique: jest.fn(),
+      update: jest.fn(),
+    },
+  },
   checkDBHealth: jest.fn().mockResolvedValue(true),
 }));
 
@@ -132,9 +134,10 @@ function testAuthMiddleware(req: Request, res: Response, next: NextFunction): vo
     }
 
     // Attach user info to request
-    (req as Request & { user: { id: string; role: string } }).user = {
+    (req as Request & { user: { id: string; role: string; email: string } }).user = {
       id: payload.sub,
       role: payload.role,
+      email: '',
     };
     next();
   } catch {
@@ -166,6 +169,10 @@ describe('Auth endpoints', () => {
     jest.clearAllMocks();
     app = buildTestApp();
 
+    // Restore default update mock after clearAllMocks
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (prisma as any).user.update.mockResolvedValue(MOCK_USER);
+
     // Default: cache has no previous failed attempts
     mockCacheService.get.mockResolvedValue(null);
     mockCacheService.increment.mockResolvedValue(1);
@@ -175,7 +182,8 @@ describe('Auth endpoints', () => {
 
   // ── 1. Wrong password returns 401 ─────────────────────────────────────────
   it('POST /api/v1/auth/login with wrong password returns 401', async () => {
-    (prisma as unknown as { user: typeof mockPrismaUser }).user.findUnique
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (prisma as any).user.findUnique
       .mockResolvedValue({
         ...MOCK_USER,
         select: undefined,
@@ -193,7 +201,8 @@ describe('Auth endpoints', () => {
 
   // ── 2. Unknown email returns 401 ──────────────────────────────────────────
   it('POST /api/v1/auth/login with unknown email returns 401', async () => {
-    (prisma as unknown as { user: typeof mockPrismaUser }).user.findUnique
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (prisma as any).user.findUnique
       .mockResolvedValue(null);
     mockVerifyPassword.mockResolvedValue(false);
 
@@ -207,10 +216,12 @@ describe('Auth endpoints', () => {
 
   // ── 3. Correct credentials return 200 with tokens ─────────────────────────
   it('POST /api/v1/auth/login with correct credentials returns 200 with tokens', async () => {
-    (prisma as unknown as { user: typeof mockPrismaUser }).user.findUnique
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (prisma as any).user.findUnique
       .mockResolvedValue(MOCK_USER);
     mockVerifyPassword.mockResolvedValue(true);
-    (prisma as unknown as { user: typeof mockPrismaUser }).user.update
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (prisma as any).user.update
       .mockResolvedValue({ ...MOCK_USER, lastLogin: new Date() });
 
     const res = await request(app)
@@ -242,7 +253,8 @@ describe('Auth endpoints', () => {
       { expiresIn: '15m', issuer: 'rag-healthcare-assistant', audience: 'rag-healthcare-api' }
     );
 
-    (prisma as unknown as { user: typeof mockPrismaUser }).user.findUnique
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (prisma as any).user.findUnique
       .mockResolvedValue(MOCK_USER);
 
     const res = await request(app)
@@ -294,7 +306,8 @@ describe('Auth endpoints', () => {
 
   // ── 9. Deactivated user returns 401 ──────────────────────────────────────
   it('POST /api/v1/auth/login for deactivated account returns 401', async () => {
-    (prisma as unknown as { user: typeof mockPrismaUser }).user.findUnique
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (prisma as any).user.findUnique
       .mockResolvedValue({ ...MOCK_USER, isActive: false });
     mockVerifyPassword.mockResolvedValue(true);
 

@@ -31,8 +31,11 @@ if (process.env.NODE_ENV !== 'production') {
   globalThis.__prismaClient = prisma;
 }
 
-// Forward Prisma query events to Winston at appropriate log levels
-prisma.$on('query', (e: Prisma.QueryEvent) => {
+// Forward Prisma query events to Winston at appropriate log levels.
+// `prisma as any` is required because $on overloads are conditional on the
+// log config generic — lost when the variable is typed as plain PrismaClient.
+/* eslint-disable @typescript-eslint/no-explicit-any */
+(prisma as any).$on('query', (e: Prisma.QueryEvent) => {
   log.debug('Prisma query', {
     query: e.query,
     params: e.params,
@@ -40,17 +43,18 @@ prisma.$on('query', (e: Prisma.QueryEvent) => {
   });
 });
 
-prisma.$on('info', (e: Prisma.LogEvent) => {
+(prisma as any).$on('info', (e: Prisma.LogEvent) => {
   log.info('Prisma info', { message: e.message });
 });
 
-prisma.$on('warn', (e: Prisma.LogEvent) => {
+(prisma as any).$on('warn', (e: Prisma.LogEvent) => {
   log.warn('Prisma warning', { message: e.message });
 });
 
-prisma.$on('error', (e: Prisma.LogEvent) => {
+(prisma as any).$on('error', (e: Prisma.LogEvent) => {
   log.error('Prisma error', { message: e.message });
 });
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 // ---------------------------------------------------------------------------
 // Lifecycle helpers
